@@ -177,7 +177,7 @@ public class AVL {
 
     public void cloneTree(Node root, Node newNode) {
         if (root == null) {
-            return;
+            return ;
         }
         if (root.getLeft() != null) {
             newNode.setLeft(new Node());

@@ -67,8 +67,21 @@ public class StudentManagement {
     }
 
     // Requirement 6
-    public ScoreAVL scoreTree(AVL tree) {
-        // code here
-        return null;
+    public ScoreAVL scoreTree(AVL avlTree) {
+        ScoreAVL scoreTree=new ScoreAVL();
+        Node root=tree.getRoot();
+        Queue<Node> tmp = new LinkedList<Node>();
+        tmp.add(root);
+        while (!tmp.isEmpty()) {
+            Node temp = tmp.poll();
+            scoreTree.insert(temp.getData());
+            if (temp.getLeft() != null) {
+                tmp.add(temp.getLeft());
+            }
+            if (temp.getRight() != null) {
+                tmp.add(temp.getRight());
+            }
+        }
+        return scoreTree;
     }
 }
