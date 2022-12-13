@@ -78,9 +78,12 @@ public class AVL {
                 x.setRight(deleteMin(temp.getRight()));
                 x.setLeft(temp.getLeft());
             }
-            x.setHeight(1+Math.max(height(x.getLeft()),height(x.getRight())));
         }
-        return balance(x);
+        if (x != null) {
+            x.setHeight(1+Math.max(height(x.getLeft()),height(x.getRight())));
+            x = balance(x);
+        }
+        return x;
     }
 
     // ------------------Supported methods------------------
@@ -163,5 +166,29 @@ public class AVL {
     public boolean contain(int id) {
         return search(root, id) == null ? false : true;
     }
+    public Node cloneTree(Node root) {
+        if(root==null)
+            return null;
+        Node n1 = new Node();
+        n1.setData(root.getData());
+        cloneTree(root, n1);
+        return n1;
+    }
 
+    public void cloneTree(Node root, Node newNode) {
+        if (root == null) {
+            return;
+        }
+        if (root.getLeft() != null) {
+            newNode.setLeft(new Node());
+            newNode.getLeft().setData(root.getLeft().getData());
+            cloneTree(root.getLeft(), newNode.getLeft());
+        }
+        if (root.getRight() != null) {
+            newNode.setRight(new Node());
+            newNode.getRight().setData(root.getRight().getData());
+            cloneTree(root.getRight(), newNode.getRight());
+        }
+
+    }
 }

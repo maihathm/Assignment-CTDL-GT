@@ -18,7 +18,8 @@ public class StudentManagement {
     // Requirement 1
     public boolean addStudent(Student st) {
         if (tree.contain(st.getId())!=true){
-            undoState.push(tree.root);
+            Node tempRoot=tree.cloneTree(tree.getRoot());
+            undoState.push(tempRoot);
             redoState.removeAll(redoState);
             tree.insert(st);
             return true;
@@ -39,7 +40,8 @@ public class StudentManagement {
     // Requirement 3
     public boolean removeStudent(int id) {
         if (tree.contain(id)==true){
-            undoState.push(tree.root);
+            Node tempRoot=tree.cloneTree(tree.getRoot());
+            undoState.push(tempRoot);
             redoState.removeAll(redoState);
             Student student=tree.search(id).getData();
             tree.delete(student);
@@ -50,14 +52,17 @@ public class StudentManagement {
 
     // Requirement 4
     public void undo() {
-        redoState.push(tree.root);
+        Node tempRoot=tree.cloneTree(tree.getRoot());
+        redoState.push(tempRoot);
         if (!undoState.empty())
             tree.setRoot(undoState.pop());
     }
 
     // Requirement 5
     public void redo() {
-        if(!redoState.empty())
+        Node tempRoot=tree.cloneTree(tree.getRoot());
+        undoState.push(tempRoot);
+        if(!redoState.isEmpty())
             tree.setRoot(redoState.pop());;
     }
 
